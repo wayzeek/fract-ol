@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:33:35 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/09 15:59:39 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/14 15:24:10 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 t_complex	place_c(double x, double y, int length, int width, t_map *map)
 {
-	t_complex	x_vect;
-	t_complex	y_vect;
 	t_complex	zoom;
 
-	x_vect = (t_complex){-2, 2};
-	y_vect = (t_complex){-2,  2};
-	zoom = (t_complex){length / (x_vect.y - x_vect.x) * map->zoom_factor, width / (y_vect.y - y_vect.x) * map->zoom_factor};
-	return ((t_complex){(x / zoom.x + x_vect.x) + map->move_x, (y  / zoom.y + y_vect.x) + map->move_y});
+	map->x_vect = (t_complex){-2 * (1 / map->zoom_factor), 2};
+	map->y_vect = (t_complex){-2 * (1 / map->zoom_factor),  2};
+	zoom = (t_complex){length / (map->x_vect.y - map->x_vect.x) * map->zoom_factor, width / (map->y_vect.y - map->y_vect.x) * map->zoom_factor};
+	//printf("x = %f - y = %f\n", zoom.x, zoom.y);
+	return ((t_complex){(x / zoom.x + map->x_vect.x) + map->move_x, (y  / zoom.y + map->y_vect.x) + map->move_y});
 }
 
 int	mandelbrot_calculator(t_complex z, t_complex c, int max_i)
@@ -39,7 +38,7 @@ int	mandelbrot_calculator(t_complex z, t_complex c, int max_i)
 	return (i);
 }
 
-void	mandelbrot_generator(t_data *data, t_map *map)
+void	mandelbrot_generator(t_thread *t)
 {
 	t_complex	z;
 	t_complex	c;
@@ -47,21 +46,44 @@ void	mandelbrot_generator(t_data *data, t_map *map)
 	double		x;
 	double		y;
 
-	y = 0;
-	while (y < map->width)
+	y = t->map->width / 8 * t->i;
+	while (y < t->map->width / 8 * (t->i + 1))
 	{
 		x = 0;
-		while (x < map->length)
+		while (x < t->map->length)
 		{
 			z = (t_complex){0, 0};
-			c = place_c(x, y, map->length, map->width, map);
-			i = mandelbrot_calculator(z, c, map->max_i);
-			if (i == map->max_i)
-				opti_pixelput(data, x, y, 0x00000000);
+			c = place_c(x, y, t->map->length, t->map->width, t->map);
+			i = mandelbrot_calculator(z, c, t->map->max_i);
+			if (i == t->map->max_i)
+				opti_pixelput(&t->map->img, x, y, 0x00000000);
 			else
-				opti_pixelput(data, x, y, create_trgb(0, i * 180 / map->max_i, 0, 0));
+				opti_pixelput(&t->map->img, x, y, fade(0x00FFF01F, 0x00292444, i / t->map->max_i));
 			x++;
 		}
 		y++;
 	}
+}
+
+void	threading(t_map *map)
+{
+	int			i;
+	t_thread	threads[8];
+
+	i = 0;
+	mlx_clear_window(map->mlx, map->mlx_win);
+	while (i < 8)
+	{
+		threads[i].i = i;
+		threads[i].map = map;
+		pthread_create(&threads[i].thread, NULL, (void *)mandelbrot_generator, &threads[i]);
+		i++;
+	}
+	i = 0;
+	while (i < 8)
+	{
+		pthread_join(threads[i].thread, NULL);
+		i++;
+	}
+	mlx_put_image_to_window(map->mlx, map->mlx_win, map->img.img, 0, 0);
 }
