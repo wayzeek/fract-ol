@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:33:35 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/14 15:24:10 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/15 14:42:56 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	mandelbrot_generator(t_thread *t)
 		x = 0;
 		while (x < t->map->length)
 		{
-			z = (t_complex){0, 0};
+			z = (t_complex){0.0, 0.0};
 			c = place_c(x, y, t->map->length, t->map->width, t->map);
 			i = mandelbrot_calculator(z, c, t->map->max_i);
 			if (i == t->map->max_i)

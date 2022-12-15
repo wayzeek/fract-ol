@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:27:25 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/14 16:37:25 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/15 13:59:58 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,27 @@ int	check_key(int key_code, t_map *map)
 int	check_mouse(int key_code, int x, int y, t_map *map)
 {
 	t_complex	mouse;
+	double		scalechange;
+	t_complex	offset;
 
-	mouse = place_c(x, y, map->length, map->width, map);
 	if (key_code == 4)
 	{
-		map->move_x = mouse.x * map->zoom_factor;
-		map->move_y = mouse.y * map->zoom_factor;
-		map->zoom_factor += 0.05;
+		scalechange = (map->zoom_factor - 0.02) - map->zoom_factor;
+		mouse = place_c(x, y, map->length, map->width, map);
+		offset  = (t_complex){-1 * (mouse.x * scalechange), -1 * (mouse.y * scalechange)};
+		map->zoom_factor -= 0.02;
+		map->move_x = (mouse.x - offset.x) / map->zoom_factor;
+		map->move_y = (mouse.y - offset.y) / map->zoom_factor;
 		threading(map);
 	}
 	else if (key_code == 5)
 	{
-		map->move_x = mouse.x * map->zoom_factor;
-		map->move_y = mouse.y * map->zoom_factor;
-		map->zoom_factor -= 0.05;
+		scalechange = (map->zoom_factor + 0.02) - map->zoom_factor;
+		mouse = place_c(x, y, map->length, map->width, map);
+		offset  = (t_complex){-1 * (mouse.x * scalechange), -1 * (mouse.y * scalechange)};
+		map->zoom_factor += 0.02;
+		map->move_x = (mouse.x - offset.x) / map->zoom_factor;
+		map->move_y = (mouse.y - offset.y) / map->zoom_factor;
 		threading(map);
 	}
 	else if (key_code == 2)
@@ -72,7 +79,7 @@ int	check_mouse(int key_code, int x, int y, t_map *map)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_map	map;
 
