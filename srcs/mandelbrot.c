@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:33:35 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/15 14:42:56 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/16 13:57:44 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_complex	place_c(double x, double y, int length, int width, t_map *map)
 	map->x_vect = (t_complex){-2 * (1 / map->zoom_factor), 2};
 	map->y_vect = (t_complex){-2 * (1 / map->zoom_factor),  2};
 	zoom = (t_complex){length / (map->x_vect.y - map->x_vect.x) * map->zoom_factor, width / (map->y_vect.y - map->y_vect.x) * map->zoom_factor};
-	//printf("x = %f - y = %f\n", zoom.x, zoom.y);
 	return ((t_complex){(x / zoom.x + map->x_vect.x) + map->move_x, (y  / zoom.y + map->y_vect.x) + map->move_y});
 }
 
@@ -32,7 +31,7 @@ int	mandelbrot_calculator(t_complex z, t_complex c, int max_i)
 	while ((z.x * z.x) + (z.y * z.y) < 4 && i < max_i)
 	{
 		temp = z.x;
-		z = (t_complex){(z.x * z.x - z.y * z.y) + c.x, (2 * z.y * temp) + c.y};
+		z = (t_complex){(z.x * z.x - z.y * z.y) - 1, (2 * z.y * temp) + 0};
 		i++;
 	}
 	return (i);
@@ -52,9 +51,13 @@ void	mandelbrot_generator(t_thread *t)
 		x = 0;
 		while (x < t->map->length)
 		{
-			z = (t_complex){0.0, 0.0};
+			z.x = (t->map->move_x + (x - t->map->length / 2)) / (t->map->zoom_factor * 100);
+			z.y = (t->map->move_y + (y - t->map->width / 2)) / (t->map->zoom_factor * 100);
+			//printf("map.move.x = %f map.move_y = %f\n", t->map->move_x, t->map->move_y);
+			//printf("x = %f y = %f\n", x, y);
+			//printf("z.x = %f z.i = %f\n\n", z.x, z.y);
 			c = place_c(x, y, t->map->length, t->map->width, t->map);
-			i = mandelbrot_calculator(z, c, t->map->max_i);
+			i = mandelbrot_calculator(c, c, t->map->max_i);
 			if (i == t->map->max_i)
 				opti_pixelput(&t->map->img, x, y, 0x00000000);
 			else

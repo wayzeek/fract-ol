@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:27:25 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/15 13:59:58 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/16 13:54:04 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,25 @@ int	check_key(int key_code, t_map *map)
 
 int	check_mouse(int key_code, int x, int y, t_map *map)
 {
-	t_complex	mouse;
-	double		scalechange;
-	t_complex	offset;
+	
+	double	x_pos;
+	double	y_pos;
 
+	x_pos = (x - map->length / 2) / (map->zoom_factor * 100);
+	y_pos = (y - map->width / 2) / (map->zoom_factor * 100);
+	
 	if (key_code == 4)
 	{
-		scalechange = (map->zoom_factor - 0.02) - map->zoom_factor;
-		mouse = place_c(x, y, map->length, map->width, map);
-		offset  = (t_complex){-1 * (mouse.x * scalechange), -1 * (mouse.y * scalechange)};
-		map->zoom_factor -= 0.02;
-		map->move_x = (mouse.x - offset.x) / map->zoom_factor;
-		map->move_y = (mouse.y - offset.y) / map->zoom_factor;
+		map->move_x += (0.05 * x_pos);
+		map->move_y += (0.05 * y_pos);
+		map->zoom_factor *= 1.05;
 		threading(map);
 	}
 	else if (key_code == 5)
 	{
-		scalechange = (map->zoom_factor + 0.02) - map->zoom_factor;
-		mouse = place_c(x, y, map->length, map->width, map);
-		offset  = (t_complex){-1 * (mouse.x * scalechange), -1 * (mouse.y * scalechange)};
-		map->zoom_factor += 0.02;
-		map->move_x = (mouse.x - offset.x) / map->zoom_factor;
-		map->move_y = (mouse.y - offset.y) / map->zoom_factor;
+		map->zoom_factor /= 1.2;
+		map->move_x -= 0.1 * x_pos;
+		map->move_y -= 0.1 * y_pos;
 		threading(map);
 	}
 	else if (key_code == 2)
