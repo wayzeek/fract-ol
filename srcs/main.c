@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:27:25 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/16 13:54:04 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/16 16:25:50 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ int	check_key(int key_code, t_map *map)
 
 int	check_mouse(int key_code, int x, int y, t_map *map)
 {
-	
 	double	x_pos;
 	double	y_pos;
 
 	x_pos = (x - map->length / 2) / (map->zoom_factor * 100);
 	y_pos = (y - map->width / 2) / (map->zoom_factor * 100);
-	
 	if (key_code == 4)
 	{
 		map->move_x += (0.05 * x_pos);

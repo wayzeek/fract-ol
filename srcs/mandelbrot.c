@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:33:35 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/16 13:57:44 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/16 16:29:50 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	mandelbrot_calculator(t_complex z, t_complex c, int max_i)
 	while ((z.x * z.x) + (z.y * z.y) < 4 && i < max_i)
 	{
 		temp = z.x;
-		z = (t_complex){(z.x * z.x - z.y * z.y) - 1, (2 * z.y * temp) + 0};
+		z = (t_complex){(z.x * z.x - z.y * z.y) + c.x, (2 * z.y * temp) + c.y};
 		i++;
 	}
 	return (i);
@@ -53,13 +53,10 @@ void	mandelbrot_generator(t_thread *t)
 		{
 			z.x = (t->map->move_x + (x - t->map->length / 2)) / (t->map->zoom_factor * 100);
 			z.y = (t->map->move_y + (y - t->map->width / 2)) / (t->map->zoom_factor * 100);
-			//printf("map.move.x = %f map.move_y = %f\n", t->map->move_x, t->map->move_y);
-			//printf("x = %f y = %f\n", x, y);
-			//printf("z.x = %f z.i = %f\n\n", z.x, z.y);
 			c = place_c(x, y, t->map->length, t->map->width, t->map);
 			i = mandelbrot_calculator(c, c, t->map->max_i);
 			if (i == t->map->max_i)
-				opti_pixelput(&t->map->img, x, y, 0x00000000);
+				opti_pixelput(&t->map->img, x, y, 0);
 			else
 				opti_pixelput(&t->map->img, x, y, fade(0x00FFF01F, 0x00292444, i / t->map->max_i));
 			x++;
