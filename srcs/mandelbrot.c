@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:33:35 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/19 14:01:30 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/19 16:06:02 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	mandelbrot_calculator(t_complex z, t_complex c, int max_i)
 	double		temp;
 
 	i = 0;
-	while ((z.x * z.x) + (z.y * z.y) < 4 && i < max_i)
+	while ((z.x * z.x) + (z.y * z.y) <= 4 && i < max_i)
 	{
 		temp = z.x;
 		z = (t_complex){(z.x * z.x - z.y * z.y) + c.x, (2 * z.y * temp) + c.y};
@@ -46,7 +46,7 @@ int	julia_calculator(t_complex z, t_map *map)
 	double		temp;
 
 	i = 0;
-	while ((z.x * z.x) + (z.y * z.y) < 4 && i < map->max_i)
+	while ((z.x * z.x) + (z.y * z.y) <= 4 && i < map->max_i)
 	{
 		temp = z.x;
 		z = (t_complex){(z.x * z.x - z.y * z.y) + map->julia_x, \
@@ -70,9 +70,9 @@ void	fractal_generator(t_thread *t)
 		x = 0;
 		while (x++ < t->map->length)
 		{
-			z.x = (t->map->move_x + (x - t->map->length / 2)) \
+			z.x = (t->map->move_x * 0.05 + (x - t->map->length / 2)) \
 			/ (t->map->zoom_factor * 100);
-			z.y = (t->map->move_y + (y - t->map->width / 2)) \
+			z.y = (t->map->move_y * 0.05 + (y - t->map->width / 2)) \
 			/ (t->map->zoom_factor * 100);
 			c = place_c(x, y, t->map);
 			if (t->map->fractal_chosen == 'm')

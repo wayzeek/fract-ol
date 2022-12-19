@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:27 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/19 13:59:55 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/19 16:23:29 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	put_color(int i, double x, double y, t_map *map)
 		opti_pixelput(&map->img, x, y, 0);
 	else
 		opti_pixelput(&map->img, x, y, \
-		fade(0x00FFF01F, 0x00292444, i / map->max_i));
+		fade(0x00FF0505, 0x003C0505, i % (int)map->max_i));
 }

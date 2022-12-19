@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:27:25 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/19 13:49:58 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/19 16:11:23 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	fill_map(t_map	*map)
 	map->move_y = 0;
 	map->length = 1000;
 	map->width = 1000;
-	map->max_i = 50;
+	map->max_i = 30;
 	map->zoom_factor = 1;
 	map->mlx = mlx_init();
 	map->mlx_win = mlx_new_window(map->mlx, map->length, map->width,
 			"fract_ol");
-	map->img.img = mlx_new_image(map->mlx, 1000, 1000);
+	map->img.img = mlx_new_image(map->mlx, map->length, map->width);
 	map->img.addr = mlx_get_data_addr(map->img.img, &map->img.bits_per_pixel,
 			&map->img.line_length, &map->img.endian);
 }
