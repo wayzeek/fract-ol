@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 12:33:35 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/19 16:06:02 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/20 14:45:29 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_complex	place_c(double x, double y, t_map *map)
 	(y / zoom.y + map->y_vect.x) + map->move_y});
 }
 
-int	mandelbrot_calculator(t_complex z, t_complex c, int max_i)
+double	mandelbrot_calculator(t_complex z, t_complex c, int max_i)
 {
-	int			i;
+	double		i;
 	double		temp;
 
 	i = 0;
@@ -40,17 +40,17 @@ int	mandelbrot_calculator(t_complex z, t_complex c, int max_i)
 	return (i);
 }
 
-int	julia_calculator(t_complex z, t_map *map)
+double	julia_calculator(t_complex c, t_map *map)
 {
-	int			i;
+	double		i;
 	double		temp;
 
 	i = 0;
-	while ((z.x * z.x) + (z.y * z.y) <= 4 && i < map->max_i)
+	while ((c.x * c.x) + (c.y * c.y) <= 4 && i < map->max_i)
 	{
-		temp = z.x;
-		z = (t_complex){(z.x * z.x - z.y * z.y) + map->julia_x, \
-		(2 * z.y * temp) + map->julia_y};
+		temp = c.x;
+		c = (t_complex){(c.x * c.x - c.y * c.y) + map->julia_x, \
+		(2 * c.y * temp) + map->julia_y};
 		i++;
 	}
 	return (i);
@@ -58,9 +58,8 @@ int	julia_calculator(t_complex z, t_map *map)
 
 void	fractal_generator(t_thread *t)
 {
-	t_complex	z;
 	t_complex	c;
-	int			i;
+	double		i;
 	double		x;
 	double		y;
 
@@ -70,10 +69,6 @@ void	fractal_generator(t_thread *t)
 		x = 0;
 		while (x++ < t->map->length)
 		{
-			z.x = (t->map->move_x * 0.05 + (x - t->map->length / 2)) \
-			/ (t->map->zoom_factor * 100);
-			z.y = (t->map->move_y * 0.05 + (y - t->map->width / 2)) \
-			/ (t->map->zoom_factor * 100);
 			c = place_c(x, y, t->map);
 			if (t->map->fractal_chosen == 'm')
 				i = mandelbrot_calculator(c, c, t->map->max_i);
@@ -91,7 +86,6 @@ void	threading(t_map *map)
 	t_thread	threads[8];
 
 	i = 0;
-	mlx_clear_window(map->mlx, map->mlx_win);
 	while (i < 8)
 	{
 		threads[i].i = i;
@@ -100,11 +94,7 @@ void	threading(t_map *map)
 		(void *)fractal_generator, &threads[i]);
 		i++;
 	}
-	i = 0;
-	while (i < 8)
-	{
+	while (i--)
 		pthread_join(threads[i].thread, NULL);
-		i++;
-	}
 	mlx_put_image_to_window(map->mlx, map->mlx_win, map->img.img, 0, 0);
 }

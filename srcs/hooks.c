@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:25:41 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/19 14:00:11 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/20 13:10:38 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int	mouse_check(int key_code, int x, int y, t_map *map)
 	{
 		map->move_x += (0.05 * x_pos);
 		map->move_y += (0.05 * y_pos);
-		map->zoom_factor *= 1.05;
+		map->zoom_factor += 0.05 * map->zoom_factor;
+		if (map->max_i < 100)
+			map->max_i += 1;
 		threading(map);
 	}
 	else if (key_code == 5)
@@ -65,7 +67,9 @@ int	mouse_scroll_down(double x_pos, double y_pos, t_map *map)
 {
 	map->move_x += (0.05 * x_pos);
 	map->move_y += (0.05 * y_pos);
-	map->zoom_factor /= 1.05;
+	map->zoom_factor -= 0.05 * map->zoom_factor;
+	if (map->max_i > 30)
+		map->max_i -= 1;
 	threading(map);
 	return (0);
 }
@@ -75,6 +79,7 @@ int	mouse_click_right(t_map *map)
 	map->move_x = 0;
 	map->move_y = 0;
 	map->zoom_factor = 1;
+	map->max_i = 30;
 	threading(map);
 	return (0);
 }

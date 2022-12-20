@@ -6,13 +6,11 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:27:25 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/19 16:11:23 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/20 10:41:56 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fract_ol.h"
-
-#include <stdio.h>
 
 void	opti_pixelput(t_data *data, double x, double y, int color)
 {

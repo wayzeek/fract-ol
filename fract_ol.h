@@ -6,7 +6,7 @@
 /*   By: vcart <vcart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 12:48:26 by vcart             #+#    #+#             */
-/*   Updated: 2022/12/19 16:23:13 by vcart            ###   ########.fr       */
+/*   Updated: 2022/12/20 14:22:52 by vcart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "./mlx/mlx.h"
+
+#include <stdio.h>
 
 typedef struct s_data {
 	void	*img;
@@ -82,6 +84,6 @@ int			mouse_scroll_down(double x_pos, double y_pos, t_map *map);
 int			mouse_click_right(t_map *map);
 void		ft_putchar(char c);
 void		ft_putstr(char *str);
-void		put_color(int i, double x, double y, t_map *map);
+void		put_color(double i, double x, double y, t_map *map);
 
 #endif

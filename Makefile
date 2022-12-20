@@ -6,7 +6,7 @@
 #    By: vcart <vcart@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 12:26:23 by vcart             #+#    #+#              #
-#    Updated: 2022/12/19 13:42:20 by vcart            ###   ########.fr        #
+#    Updated: 2022/12/20 13:49:05 by vcart            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ HEADERS = ./fract_ol.h
 
 NAME = fractol
 
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -O2
 
 LINK = -framework OpenGL -framework AppKit
 
