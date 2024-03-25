@@ -14,7 +14,7 @@ This project aims to create graphically stunning fractals.
 - [Objectives](#objectives)
 - [Common Rules](#common-rules)
 - [Mandatory Part](#mandatory-part)
-- [V Final Rendering](#final-rendering)
+- [Final Rendering](#final-rendering)
 
 ## Introduction
 
@@ -52,8 +52,8 @@ This project allows you to discover graphic programming using the MiniLibX libra
 ## Final Rendering
 
 ### Julia Set
-<img src="https://github.com/wayzeek/fract_ol/assets/112975047/6ac9d846-82ec-4a15-a7d3-b37d72e91f2b" width="1500" height="750" alt="Julia Set">
+<img src="https://github.com/wayzeek/fract_ol/assets/112975047/6ac9d846-82ec-4a15-a7d3-b37d72e91f2b" width="1500" height="500" alt="Julia Set">
 
 ### Mandelbrot Set
-<img src="https://github.com/wayzeek/fract_ol/assets/112975047/3e72855e-0ae6-4ef4-a9f7-c48e6fb56a16" width="1500" height="750" alt="Mandelbrot Set">
+<img src="https://github.com/wayzeek/fract_ol/assets/112975047/3e72855e-0ae6-4ef4-a9f7-c48e6fb56a16" width="1500" height="500" alt="Mandelbrot Set">
 
