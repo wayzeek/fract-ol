@@ -12,11 +12,11 @@ Ce projet vise à créer graphiquement des fractales magnifiques.
 
 - [I Introduction](#i-introduction)
 - [II Objectifs](#ii-objectifs)
-- [III Règles communes](#iv-règles-communes)
-- [IV Partie obligatoire](#v-partie-obligatoire)
- - [IV.1 Rendu](#v1-rendu)
- - [IV.2 Gestion graphique](#v2-gestion-graphique)
-- [V Rendu](#vii-rendu-et-peer-evaluation)
+- [III Règles communes](#iii-règles-communes)
+- [IV Partie obligatoire](#iv-partie-obligatoire)
+ - [IV.1 Rendu](#iv1-rendu)
+ - [IV.2 Gestion graphique](#iv2-gestion-graphique)
+- [V Rendu](#v-rendu)
 
 ## I Introduction
 
@@ -53,5 +53,7 @@ Ce projet vous permet de découvrir la programmation graphique en utilisant la b
 
 ## V Rendu
 
-![Image de la fractale Julia](file.bfe:VAD2sO2qgbqPEXROeASsmsgnY0o0sDMJev7zFHhw)
-![Image de la fractale Mandelbrot](QS8mvM8V5xQQpLc6cDCFXDWTiFzZ2H9skYkiJ/DpQtnM/uZ0)
+![Image de la fractale Julia](![image](https://github.com/wayzeek/fract_ol/assets/112975047/6ac9d846-82ec-4a15-a7d3-b37d72e91f2b)
+)
+![Image de la fractale Mandelbrot](![image](https://github.com/wayzeek/fract_ol/assets/112975047/3e72855e-0ae6-4ef4-a9f7-c48e6fb56a16)
+)
