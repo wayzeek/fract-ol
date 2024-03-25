@@ -54,6 +54,4 @@ Ce projet vous permet de découvrir la programmation graphique en utilisant la b
 ## V Rendu
 
 ![Image de la fractale Julia](![image](https://github.com/wayzeek/fract_ol/assets/112975047/6ac9d846-82ec-4a15-a7d3-b37d72e91f2b)
-)
 ![Image de la fractale Mandelbrot](![image](https://github.com/wayzeek/fract_ol/assets/112975047/3e72855e-0ae6-4ef4-a9f7-c48e6fb56a16)
-)
