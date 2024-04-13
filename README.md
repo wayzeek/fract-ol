@@ -64,8 +64,5 @@ Instructions for how other developers can contribute to the project:
 
 ## 🏆 Credits
 
-Acknowledge those who contributed to the project.
+This is a solo project made by [myself](https://github.com/vcart) !
 
-## ⚖️ License
-
-MIT License - see the [LICENSE](LICENSE) file for details
