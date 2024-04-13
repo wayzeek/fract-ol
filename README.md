@@ -64,5 +64,5 @@ Instructions for how other developers can contribute to the project:
 
 ## 🏆 Credits
 
-This is a solo project made by [myself](https://github.com/vcart) !
+This is a solo project made by [myself](https://github.com/wayzeek) !
 
